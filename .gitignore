@@ -1,0 +1,10 @@
+/bin/
+/MediaWatcher*.jar
+/MANIFEST.MF
+/logs/*
+/watcherfile*
+.externalToolBuilders
+.classpath
+.project
+.settings
+build.*

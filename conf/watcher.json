@@ -1,0 +1,152 @@
+{
+	"api" : {
+		"config.url": "http://api.kr.dev.kollus.com/0/catenoid/module_config",
+		"api_reference": "module+watcherfile1",
+		"api_key": "test",
+		"main_node_key": "kr"
+	},
+    "config.url": "http://api.kr.dev.kollus.com/0/catenoid/module_config",
+    "api_reference" : "module+watcherfile1",
+    "api_key": "test",
+    "main_node_key" : "dev",
+    "start.with.run": false,
+    "support.ext_": ".htm;.html;.iso;.dat;.smi;.srt;.txt",
+    "support.ext" : "",
+    "ignore.filename": [
+        "Thumbs.db"
+    ],
+    "snap": {
+        "snap.dir": "/mnt/medianas/snapshot",
+        "snap.temp": "/home/kollus/MediaWatcher2/snap.temp",
+        "snap.second": 10,
+        "snap.width": 640,
+        "snap.height": 360
+    },
+    "watcher.send.max": 10,
+    "ffmpeg.dir" : "/usr/local/bin/ffmpeg",
+	"ffmpeg.auto.rotation" : false,
+    "ls.dir": "/bin/sh /home/kollus/MediaWatcher2/ls.sh",
+    "ls.charset": "UTF-8",
+    "ls.sleep": 0,
+    "monitor": {
+        ".monitor.url": "http://127.0.0.1/transcoder/job/monitor.php",
+        "interval": "0 0 0 * * ?"
+    },
+    "watchers": [
+        {
+            "name": "watcherfile1",
+            "api_reference" : "module+watcherfile1",
+            "api_key": "test",
+            "watcher.dir": "/home/kollus/upload",
+            "work.dir": "/mnt/medianas/working",
+            "trash.dir": "/mnt/medianas/trashcan",
+            "delete.diff.minute": 30,
+            "interval": "0/10 * * * * ?",
+            "checkin.time": 30,
+            "checkin.count": 0,
+            "monitor.check.limit.minute": 60,
+            "monitor.check.limit.count": 2,
+            "enabled": true,
+            "work.path.prefix": ""
+        },
+        {
+            "name": "watcherfile2",
+            "api_reference" : "module+watcherfile2",
+            "api_key": "test",
+            "watcher.dir": "/home/kollus/http_upload",
+            "watcher_file.kind" : 2,
+            "work.dir": "/mnt/medianas/working",
+            "trash.dir": "/mnt/medianas/trashcan",
+            "delete.diff.minute": 30,
+            "interval": "0/10 * * * * ?",
+            "checkin.time": 30,
+            "checkin.count": 0,
+            "monitor.check.limit.minute": 10,
+            "monitor.check.limit.count": 2,
+            "enabled": true,
+            "work.path.prefix": ""
+        },
+        {
+            "name": "watcherfile3",
+            "api_reference" : "module+watcherfile3",
+            "api_key": "test",
+            "watcher.dir": "/home/kollus/http_endpoint_upload",
+            "watcher_file.kind" : 4,
+            "work.dir": "/mnt/medianas/working",
+            "trash.dir": "/mnt/medianas/trashcan",
+            "delete.diff.minute": 30,
+            "interval": "0/10 * * * * ?",
+            "checkin.time": 30,
+            "checkin.count": 0,
+            "monitor.check.limit.minute": 10,
+            "monitor.check.limit.count": 2,
+            "enabled": true,
+            "work.path.prefix": ""
+        }
+    ],
+    "diskuse" : {
+    	"name" : "diskuse1",
+    	"api_reference" : "module+diskuse1",
+    	"api_key": "test",
+    	"interval": "0 0/10 * * * ?",
+    	"threads" : 1,
+    	"sh.dir" : "/bin/sh /home/kollus/MediaWatcher2/diskuse.sh",
+    	"temp.dir" : "/home/kollus/MediaWatcher2/diskuse.temp",
+    	"enabled" : false,
+    	"path" : [
+    		"/mnt/medianas/thumbnail",
+    		"/mnt/medianas/transcoding_file",
+    		"/mnt/medianas/original",
+    		"/mnt/medianas/working"
+    	]
+    },
+    "httpserver" : {
+    	"port" : 8088,
+    	"enabled" : true,
+    	"allow.ip" : [
+    		"127.0.0.1",
+    		"192.168.0.0-192.168.0.255",
+		"211.110.215.34-211.110.215.35",
+		"172.16.10.0-172.16.10.255",
+		"172.16.239.0-172.16.239.255",
+		"106.240.239.0-106.240.239.255"
+    	],
+    	"ftp.dir" : [
+    		"/home/kollus/upload",
+		"/home/kollus/http_upload"
+    	],
+    	"content.dir" : [
+    		"/mnt/medianas/transcoding_file"
+    	],
+    	"working.dir" : "/mnt/medianas/working",
+    	"snapshot.dir" : "/mnt/medianas/snapshot",
+    	"thumbnail.dir" : "/mnt/medianas/thumbnail",
+    	"backup.dir" : [
+    		"/mnt/medianas/original"
+    	],
+		"file.name.query" : true,
+    	"file.name.dbpath" : "watcherfilecheck"
+    },
+    "memcached.init": {
+    	"enabled" : false,
+    	"memcached.update.enabled" : true,
+    	"cache_server_comm_shutdown_timeout" : 1000,
+    	"doamin_information_expire" : 3600,
+    	"interval" : "0 */5 * * * ?",
+    	"memcached.check.interval" : "0,30 * * * * ?",
+    	"memcached.list.interval" : "0 0/10 * * * ?"
+    },
+   	"redis.init": {
+    	"enabled" : false,
+    	"interval" : "0 */1 * * * ?"
+    },
+    "redis.purge": {
+	"enabled" : false,
+	"interval" : "0 * * * * ?",
+	"purge-keys" : "policy-purge",
+	"edge-sentinel-key" : "kollus",
+	"password" : "",
+	"redis-database" : 0
+    }
+}
+
