@@ -1,0 +1,106 @@
+FROM openjdk:7 as MediaWatcher-Builder
+MAINTAINER kw.cho <deukksoo.moon@catenoid.net>
+
+WORKDIR /home/kollus/MediaWatcher2
+
+COPY conf /home/kollus/MediaWatcher2/conf
+
+COPY watcherfile1 /home/kollus/MediaWatcher2/watcherfile1
+COPY watcherfile2 /home/kollus/MediaWatcher2/watcherfile2
+COPY watcherfile3 /home/kollus/MediaWatcher2/watcherfile3
+
+COPY MediaWatcher2.jar /home/kollus/MediaWatcher2.jar
+
+
+
+FROM ubuntu:16.04
+
+# root 권한으로 변경
+USER root
+
+RUN apt-get update && apt-get install -y software-properties-common git wget pkg-config
+
+# Install the basic packages
+RUN apt-get install -y locales 
+RUN rm -rf /var/lib/apt/lists/*
+RUN localedef -i ko_KR -c -f UTF-8 -A /usr/share/locale/locale.alias ko_KR.UTF-8
+ENV LANG ko_KR.utf8
+
+# Install mediainfo
+RUN apt-get update --fix-missing && apt-get install -y mediainfo libzen-dev libmediainfo-dev imagemagick
+
+# Install x265 codec with yasm, cmake, g++ ...
+RUN apt-get install -y yasm cmake g++ cmake-curses-gui
+RUN wget http://ftp.videolan.org/pub/videolan/x265/x265_1.9.tar.gz
+RUN tar -zxvf x265_1.9.tar.gz x265_1.9
+
+# compile x265 library
+WORKDIR /x265_1.9/build
+RUN cmake ../source
+RUN make
+RUN make install
+RUN ldconfig
+
+# Install ffmpeg with codecs...
+WORKDIR /
+
+# add repository fdk-aac library
+RUN echo "\ndeb http://www.deb-multimedia.org/ wheezy main non-free" >> /etc/apt/sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5C808C2B65558117
+RUN apt-get update
+
+# Install codecs...
+RUN apt-get install -y libx264-dev libfdk-aac-dev libmp3lame-dev libtheora-dev libvorbis-dev libvpx-dev libopencore-amrwb-dev libopencore-amrnb-dev libwebp-dev libxvidcore-dev libxvidcore4
+RUN ldconfig
+
+# git clone ffmpeg lastest
+RUN git clone https://github.com/catenoid-company/FFmpeg.git /ffmpeg
+
+WORKDIR /ffmpeg
+
+# compile ffmpeg
+RUN ./configure --pkg-config-flags="--static" --enable-gpl --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libxvid --enable-libwebp --enable-libfdk_aac --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-version3 --enable-nonfree
+
+RUN make
+RUN make install
+
+RUN ldconfig
+RUN make distclean
+
+WORKDIR /
+
+RUN rm -rf /x265_1.9 && rm -rf /ffmpeg && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home/kollus
+
+RUN mkdir -p /home/kollus/MediaWatcher2 && chmod -R 777 /home/kollus/MediaWatcher2 \
+	mkdir -p /home/kollus/MediaWatcher2/conf && \
+	mkdir -p /home/kollus/MediaWatcher2/logs && \
+	mkdir -p /home/kollus/MediaWatcher2/snapshot && \
+	mkdir -p /home/kollus/MediaWatcher2/snap.temp && \
+	mkdir -p /home/kollus/upload && chmod -R 777 /home/kollus/upload \
+	mkdir -p /home/kollus/http_upload && chmod -R 777 /home/kollus/http_upload \
+	mkdir -p /home/kollus/http_upload_passthrough && chmod -R 777 /home/kollus/http_upload_passthrough
+
+WORKDIR /home/kollus/MediaWatcher2
+
+COPY ls.sh /home/kollus/ls.sh
+COPY diskused.sh /home/kollus/diskuse.sh
+
+COPY --from=MediaWatcher-Builder /home/kollus/MediaWatcher2 /home/kollus/MediaWatcher2
+
+CMD ["/usr/bin/java", "-jar", "/home/kollus/MediaWatcher2/MediaWatcher2.jar", "start"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,10 +2,10 @@ package net.catenoid.watcher.config;
 
 import java.util.Map;
 
-import net.catenoid.watcher.job.Poster;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import net.catenoid.watcher.upload.utils.Poster;
 
 public class Thumbnail {
 	

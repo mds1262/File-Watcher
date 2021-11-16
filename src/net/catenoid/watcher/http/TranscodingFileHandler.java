@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import net.catenoid.watcher.LogAction;
+import net.catenoid.watcher.utils.WatcherUtils;
 
 import org.apache.log4j.Logger;
 
@@ -14,7 +15,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.kollus.json_data.BaseCommand;
-import com.kollus.utils.myUtils;
 
 public class TranscodingFileHandler extends HandlerExt {
 
@@ -92,7 +92,7 @@ public class TranscodingFileHandler extends HandlerExt {
 //			for(int i = 0; i < thumbnail_files.length(); i++) {
 			for(String thumbnail : thumbnail_files) {
 				String path = thumbnail_dir + thumbnail;
-				path = myUtils.FilenameDefence(path);
+				path = WatcherUtils.FilenameDefence(path);
 				
 				ArrayList<String> cmd = new ArrayList<String>();
 				cmd.add("/bin/rm");
@@ -116,7 +116,7 @@ public class TranscodingFileHandler extends HandlerExt {
 			}
 		}
 
-		content_path = myUtils.FilenameDefence(content_path);
+		content_path = WatcherUtils.FilenameDefence(content_path);
 		ArrayList<String> dirs = conf.getHttpserverConf().getContentDir();
 		for(String dir : dirs) {
 			

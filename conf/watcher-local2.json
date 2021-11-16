@@ -1,0 +1,270 @@
+{
+	"api": {
+		"config.url": "http://api-stage-kr.kollus.com/0/catenoid/module_config",
+		"api_reference": "module+watcherfile1",
+		"api_key": "stage",
+		"main_node_key": "kr"
+	},
+	"config.url": "http://api-stage-kr.kollus.com/0/catenoid/module_config",
+	"api_reference": "module+watcherfile1",
+	"api_key": "stage",
+	"main_node_key": "dev",
+	"start.with.run": false,
+	"support.ext_": ".htm;.html;.iso;.dat;.smi;.srt;.txt",
+	"support.ext": "",
+	"ignore.filename": [
+		"Thumbs.db"
+	],
+	"snap": {
+		"snap.dir": "/mnt/medianas/snapshot",
+		"snap.temp": "/Users/kollus/MediaWatcher2/snap.temp",
+		"snap.second": 10,
+		"snap.width": 120,
+		"snap.height": 90,
+		"custom": {
+			"jyson": {
+	            "second": 30,
+	            "width": 320,
+	            "height": 180
+             },
+			"kintextv": {
+				"second": 10,
+				"width": 320,
+				"height": 180
+			},
+			"cistartv": {
+				"second": 10,
+				"width": 320,
+				"height": 180
+			},
+			"smilegate_test": {
+				"second": 10,
+				"width": 640,
+				"height": 480
+			},
+			"hanwhahbc": {
+				"second": 10,
+				"width": 720,
+				"height": 405
+			},
+			"hanwhaeagles": {
+				"second": 10,
+				"width": 720,
+				"height": 405
+			},
+			"bugilacademy": {
+				"second": 10,
+				"width": 720,
+				"height": 405
+			},
+			"hanwha": {
+				"second": 10,
+				"width": 720,
+				"height": 405
+			},
+			"megals": {
+				"second": 4,
+				"width": 120,
+				"height": 90
+			},
+                        "livegyeonggi": {
+                                "second": 10,
+                                "width": 320,
+                                "height": 180
+                        },
+                        "liveanyang": {
+                                "second": 10,
+                                "width": 320,
+                                "height": 180
+                        },
+                        "liveiubs": {
+                                "second": 10,
+                                "width": 320,
+                                "height": 180
+                        },
+                        "nectv": {
+                                "second": 10,
+                                "width": 320,
+                                "height": 180
+                        },
+                        "thejoeun": {
+                                "second": 5,
+                                "width": 800,
+                                "height": 450
+                        },
+                        "kijuke": {
+                                "second": 10,
+                                "width": 640,
+                                "height": 360
+                        },
+                        "smartcp": {
+                                "second": 20,
+                                "width": 465,
+                                "height": 279
+                        },
+                        "ielts": {
+                                "second": 10,
+                                "width": 640,
+                                "height": 360
+                        },
+                        "ultramonster": {
+                                "second": 0,
+                                "width": 640,
+                                "height": 360
+                        },
+                        "nuckle96": {
+                                "second": 0,
+                                "width": 640,
+                                "height": 360
+                        },
+                        "triad": {
+                                "second": 100,
+                                "width": 720,
+                                "height": 480
+                        },
+                        "ultra-test": {
+                                "second": 0,
+                                "width": 640,
+                                "height": 360
+                        },
+                        "hanwhahrd": {
+                                "second": 2,
+                                "width": 200,
+                                "height": 203
+                        }
+		}
+	},
+	"watcher.send.max": 30,
+	"ffmpeg.dir": "/usr/local/bin/ffmpeg",
+	"ls.dir": "/bin/sh /Users/kollus/MediaWatcher2/ls.sh",
+	"ls.charset": "UTF-8",
+	"ls.sleep": 0,
+	"monitor": {
+		".monitor.url": "http://127.0.0.1/transcoder/job/monitor.php",
+		"interval": "0 0 0 * * ?"
+	},
+	"watchers": [
+        {
+            "name": "watcherfile1",
+            "api_reference" : "module+watcherfile1",
+            "api_key": "stage",
+            "watcher.dir": "/Users/kollus/upload",
+            "work.dir": "/Users/kollus/mnt/medianas/working",
+            "trash.dir": "/Users/kollus/mnt/medianas/trashcan",
+            "delete.diff.minute": 30,
+            "interval": "0/1 * * * * ?",
+            "checkin.time": 30,
+            "checkin.count": 0,
+            "monitor.check.limit.minute": 60,
+            "monitor.check.limit.count": 2,
+            "enabled": true,
+            "work.path.prefix": ""
+        },
+		{
+			"name": "watcherfile2",
+			"api_reference": "module+watcherfile2",
+			"api_key": "stage",
+			"watcher.dir": "/Users/kollus/http_upload",
+			"watcher_file.kind": 2,
+			"work.dir": "/Users/kollus/mnt/medianas/working",
+			"trash.dir": "/Users/kollus/mnt/medianas/trashcan",
+			"delete.diff.minute": 30,
+			"interval": "0/1 * * * * ?",
+			"checkin.time": 5,
+			"checkin.count": 0,
+			"monitor.check.limit.minute": 10,
+			"monitor.check.limit.count": 2,
+			"enabled": true,
+			"work.path.prefix": ""
+		},{
+			"name": "watcherfile4",
+			"api_reference": "module+watcherfile4",
+			"api_key": "stage",
+			"watcher.dir": "/Users/kollus/http_upload_passthrough",
+			"watcher_file.kind": 4,
+			"work.dir": "/Users/kollus/mnt/medianas/working",
+			"trash.dir": "/Users/kollus/mnt/medianas/trashcan",
+			"delete.diff.minute": 30,
+			"interval": "0/1 * * * * ?",
+			"checkin.time": 5,
+			"checkin.count": 0,
+			"monitor.check.limit.minute": 10,
+			"monitor.check.limit.count": 2,
+			"enabled": true,
+			"work.path.prefix": ""
+		}
+	],
+	"diskuse": {
+		"name": "diskuse1",
+		"api_reference": "module+diskuse1",
+		"api_key": "stage",
+		"interval": "0 0 0 * * ?",
+		"threads": 1,
+		"sh.dir": "/bin/bash /Users/kollus/MediaWatcher2/diskuse.sh",
+		"temp.dir": "/Users/kollus/MediaWatcher2/diskuse.temp",
+		"enabled": false,
+		"path": [
+			"/Users/kollus/upload",
+			"/Users/kollus/http_upload",
+			"/Users/kollus/http_upload_passthrough",
+			"/mnt/medianas/snapshot",
+			"/mnt/medianas/thumbnail",
+			"/mnt/medianas/transcoding_file",
+			"/mnt/medianas/original",
+			"/mnt/medianas/working",
+			"/mnt/medianas/overlay"
+		]
+	},
+	"httpserver": {
+		"port": 8088,
+		"enabled": true,
+		"allow.ip": [
+			"0:0:0:0:0:0:0:1",
+			"127.0.0.1",
+			"172.16.181.0-172.16.181.255",
+			"182.252.181.0-182.252.181.255",
+			"59.29.237.3",
+			"211.231.103.107",
+			"27.0.238.117"
+		],
+		"ftp.servers": [
+			"172.16.181.78"
+		],
+		"ftp.dir": [
+			"/Users/kollus/upload",
+			"/Users/kollus/http_upload"
+		],
+		"content.dir": [
+			"/mnt/medianas/transcoding_file"
+		],
+		"working.dir": "/Users/kollus/mnt/medianas/working",
+		"snapshot.dir": "/Users/kollus/mnt/medianas/snapshot",
+		"thumbnail.dir": "/Users/kollus/mnt/medianas/thumbnail",
+		"backup.dir": [
+			"/Users/kollus/mnt/medianas/original"
+		],
+		"file.name.query": true,
+		"file.name.dbpath": "watcherfilecheck"
+	},
+	"memcached.init": {
+		"enabled": false,
+		"memcached.update.enabled": true,
+		"cache_server_comm_shutdown_timeout": 1000,
+		"doamin_information_expire": 3600,
+		"interval": "0/5 * * * * ?",
+		"memcached.check.interval": "0,30 * * * * ?",
+		"memcached.list.interval": "0 0/10 * * * ?"
+	},
+	"redis.init": {
+		"enabled": false,
+		"interval": "0 0/1 * * * ?"
+	},
+	"redis.purge": {
+		"enabled": false,
+		"interval": "0 * * * * ?",
+		"purge-keys": "policy-purge",
+		"edge-sentinel-key": "kollus",
+		"password": "",
+		"redis-database": 0
+	}
+}

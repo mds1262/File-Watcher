@@ -25,6 +25,7 @@ import net.catenoid.watcher.http.ProviderHandler;
 import net.catenoid.watcher.http.TranscodingFileHandler;
 import net.catenoid.watcher.http.WorkingFileHandler;
 import net.catenoid.watcher.job.Role_Watcher;
+import net.catenoid.watcher.utils.WatcherUtils;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -37,8 +38,6 @@ import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
-import com.kollus.utils.myUtils;
-
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 
@@ -46,7 +45,8 @@ public class Watcher {
 	
 	private static Logger log = Logger.getLogger(Watcher.class);
 	public static String VERSION = getManifestInfo();
-
+//	public static String VERSION ="1.6-b415 [gson]";
+ 
 	/**
 	 * 프로그램 버전 출력
 	 */
@@ -61,7 +61,7 @@ public class Watcher {
 	public static void main(String[] args) throws Exception {
 		
 		String user_dir = System.getProperty("user.dir");
-		
+
 		String[] paths = {
 				user_dir + "/log4j.properties",
 				user_dir + "/bin/log4j.properties",
@@ -92,7 +92,7 @@ public class Watcher {
 			try {
 				start();
 			} catch(Exception e) {
-				log.error(myUtils.getStackTrace(e));
+				log.error(WatcherUtils.getStackTrace(e));
 			}
 		}else if("stop".equals(mode)){
 			stop();
@@ -113,7 +113,7 @@ public class Watcher {
 		 * 초기화 및 환경 정보 확인 작업
 		 */		
 		Config conf = Config.getConfig();
-		
+
 		/**
 		 * 시작과 함께 모든 Watcher를 한번 실행하도록 옵션이 설정된 경우
 		 */
@@ -128,7 +128,7 @@ public class Watcher {
 		if(setupWatcher(conf) == true) {
 			runJobs++;
 		}
-		
+		 
 		if(runJobs == 0) {
 			log.error(LogAction.PROGRAM_CONFIG + Config.WATCHER_PROPERTIES_FILE);
 			

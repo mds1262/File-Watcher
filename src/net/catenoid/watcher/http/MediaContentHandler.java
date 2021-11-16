@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import net.catenoid.watcher.LogAction;
+import net.catenoid.watcher.utils.WatcherUtils;
 
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.kollus.json_data.BaseCommand;
-import com.kollus.utils.myUtils;
 
 public class MediaContentHandler extends HandlerExt {
 
@@ -231,7 +231,7 @@ public class MediaContentHandler extends HandlerExt {
 	private boolean deleteFile(String dir, String filename) {
 		
 		String path = String.format("%s%s", dir, filename);
-		path = myUtils.FilenameDefence(path);
+		path = WatcherUtils.FilenameDefence(path);
 		
 		ArrayList<String> cmd = new ArrayList<String>();
 //		cmd.add("/bin/sh");

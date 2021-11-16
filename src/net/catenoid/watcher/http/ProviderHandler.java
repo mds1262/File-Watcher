@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import net.catenoid.watcher.LogAction;
+import net.catenoid.watcher.utils.WatcherUtils;
 
 import org.apache.log4j.Logger;
-
-import com.kollus.utils.myUtils;
 
 public class ProviderHandler extends HandlerExt {
 

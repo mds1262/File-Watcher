@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import net.catenoid.watcher.LogAction;
+import net.catenoid.watcher.utils.WatcherUtils;
 
 import org.apache.log4j.Logger;
-
-import com.kollus.utils.myUtils;
 
 public class OriginalFileHandler extends HandlerExt {
 
@@ -57,7 +56,7 @@ public class OriginalFileHandler extends HandlerExt {
 		for(String dir : backupDir) {
 
 			String filename = makeBackupContentFile(dir, backupFile);
-			filename = myUtils.FilenameDefence(filename);
+			filename = WatcherUtils.FilenameDefence(filename);
 			
 			ArrayList<String> cmd_file_remove = new ArrayList<String>();
 			cmd_file_remove.add("/bin/rm");

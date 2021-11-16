@@ -1,0 +1,92 @@
+FROM openjdk:7 as MediaWatcher-Builder
+MAINTAINER ds.moon <deuksoo.mun@catenoid.net>
+
+RUN apt-get update && wget https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.16-bin.tar.gz
+RUN tar -zxvf apache-ant-1.9.16-bin.tar.gz
+
+#RUN export ANT_HOME=/apache-ant-1.9.16
+#RUN export PATH="${PATH}:${ANT_HOME}/bin"
+
+WORKDIR /home/kollus
+
+RUN mkdir -p /home/kollus/MediaWatcher2
+
+COPY . /home/kollus/MediaWatcher2
+
+WORKDIR /home/kollus/MediaWatcher2
+
+RUN /apache-ant-1.9.16/bin/ant -buildfile build2.xml
+
+RUN chmod -R 777 /home/kollus/MediaWatcher2
+
+FROM openjdk:7
+
+# Install the basic packages
+RUN apt-get update && apt-get install -y software-properties-common git wget pkg-config
+
+# 한글 설정
+RUN apt-get install -y locales 
+RUN rm -rf /var/lib/apt/lists/*
+RUN localedef -i ko_KR -c -f UTF-8 -A /usr/share/locale/locale.alias ko_KR.UTF-8
+ENV LANG ko_KR.utf8
+
+RUN ldconfig
+
+# Install mediainfo
+RUN apt-get update --fix-missing && apt-get install -y mediainfo libzen-dev libmediainfo-dev imagemagick
+
+# Install x265 codec with yasm, cmake, g++ ...
+RUN apt-get install -y yasm cmake g++ cmake-curses-gui
+RUN wget http://ftp.videolan.org/pub/videolan/x265/x265_1.9.tar.gz
+RUN tar -zxvf x265_1.9.tar.gz x265_1.9
+
+# compile x265 library
+WORKDIR /x265_1.9/build
+RUN cmake ../source
+RUN make
+RUN make install
+RUN ldconfig
+
+# git clone ffmpeg lastest
+RUN git clone https://github.com/catenoid-company/FFmpeg.git /ffmpeg
+
+WORKDIR /ffmpeg
+
+# compile ffmpeg
+# libfdk_aac, libmp3lame, libopencore_amrwb, libtheora, libvorbis, libvpx, libwebp
+#RUN ./configure --pkg-config-flags="--static" --enable-gpl --enable-libx264 --enable-libx265 --enable-libxvid --enable-version3 --enable-nonfree
+
+WORKDIR /
+
+# kollus 계정 & 그룹 생성
+RUN groupadd -g 2001 kollus
+RUN useradd -u 2001 -g kollus -m -d /home/kollus kollus
+
+# kollus 홈 디렉터리 생성
+RUN mkdir -p /home/kollus
+
+RUN mkdir -p /home/kollus/MediaWatcher2 && chmod -R 777 /home/kollus/MediaWatcher2 && \
+	mkdir -p /home/kollus/http_upload && chmod -R 777 /home/kollus/http_upload && \
+	mkdir -p /home/kollus/http_upload_passthrough && chmod -R 777 /home/kollus/http_upload_passthrough && \
+	chmod -R 777 /mnt && chmod -R 777 /tmp
+
+# 디렉터리 host 공유 설정
+VOLUME ["/home/kollus/http_upload", "/home/kollus/http_upload_passthrough", "/home/kollus/MediaWatcher2", "/mnt", "/tmp"]
+
+WORKDIR /home/kollus
+
+COPY --from=MediaWatcher-Builder /home/kollus/MediaWatcher2 /home/kollus/MediaWatcher2
+
+WORKDIR /home/kollus/MediaWatcher2
+
+RUN mkdir -p /home/kollus/MediaWatcher2/logs && chmod -R 777 /home/kollus/MediaWatcher2/logs
+
+# 디렉터리 소유자&그룹 설정
+RUN chown -R kollus.kollus /home/kollus
+
+# 동작 계정 설정
+USER kollus
+
+CMD ["java", "-jar", "MediaWatcher2.jar", "start"]
+
+EXPOSE 8088

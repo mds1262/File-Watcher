@@ -1,16 +1,3 @@
-# File Watcher
+# MediaWatcher2
 
-개발툴:eclipce
-
-개발언어:java
-
-Version : 1.7
-
-개발서버:redis
-
-개발내용:
-파일 감지 프로그램
-
-포트폴리오
-
-무단 사용 금지
+kollus_utils 프로젝트와 함께 빌드해야합니다.

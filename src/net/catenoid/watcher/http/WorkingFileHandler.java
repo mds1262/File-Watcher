@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import net.catenoid.watcher.LogAction;
+import net.catenoid.watcher.utils.WatcherUtils;
 
 import org.apache.log4j.Logger;
-
-import com.kollus.utils.myUtils;
 
 public class WorkingFileHandler extends HandlerExt {
 
@@ -34,7 +33,7 @@ public class WorkingFileHandler extends HandlerExt {
 		@SuppressWarnings("unused")
 		String provider = (String) params.get(PARAMS.PROVIDER);		
 		String content_path = (String) params.get(PARAMS.CONTENT_PATH);
-		content_path = myUtils.FilenameDefence(content_path);
+		content_path = WatcherUtils.FilenameDefence(content_path);
 		
 		// delete media_content
 		String dir = conf.getHttpserverConf().getWorkingDir();

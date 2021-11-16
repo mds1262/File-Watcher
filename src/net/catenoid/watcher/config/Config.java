@@ -19,7 +19,6 @@ import com.kollus.utils.ConfigException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
-import org.h2.util.Utils;
 
 public class Config extends BaseConfig {
 	private static Logger log = Logger.getLogger(Config.class);
@@ -28,8 +27,9 @@ public class Config extends BaseConfig {
 	 * 환경 설정 파일명
 	 */
 	public static final String WATCHER_PROPERTIES_FILE = "watcher.json";
+//	public static final String WATCHER_PROPERTIES_FILE = "watcher-local.json";
 
-	// Config를 임의 생성하지 못하도록 한다.
+	// Config를 임의 생성하지 못하도록 한다.cat
 	protected Config() {
 	}
 
@@ -178,14 +178,15 @@ public class Config extends BaseConfig {
 	private static Config readProperty() throws ConfigException, JsonSyntaxException, ClientProtocolException, IOException {
 		
 		String path = Config.get_config_file_path();
+		
 		Reader reader;
 		try {
 			reader = new FileReader(path);
 		} catch (FileNotFoundException e) {
 			throw new ConfigException(e);
 		}
-		
 		Gson gson = BaseCommand.gson(false);
+		
 		final Config cfg = gson.fromJson(reader, Config.class);
 		cfg._init();
 		

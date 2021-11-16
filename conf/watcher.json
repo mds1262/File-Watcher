@@ -58,8 +58,8 @@
             "work.dir": "/mnt/medianas/working",
             "trash.dir": "/mnt/medianas/trashcan",
             "delete.diff.minute": 30,
-            "interval": "0/10 * * * * ?",
-            "checkin.time": 30,
+            "interval": "0/1 * * * * ?",
+            "checkin.time": 1,
             "checkin.count": 0,
             "monitor.check.limit.minute": 10,
             "monitor.check.limit.count": 2,
@@ -70,8 +70,8 @@
             "name": "watcherfile3",
             "api_reference" : "module+watcherfile3",
             "api_key": "test",
-            "watcher.dir": "/home/kollus/http_endpoint_upload",
-            "watcher_file.kind" : 4,
+            "watcher.dir": "/home/kollus/http_upload",
+            "watcher_file.kind" : 2,
             "work.dir": "/mnt/medianas/working",
             "trash.dir": "/mnt/medianas/trashcan",
             "delete.diff.minute": 30,
@@ -82,7 +82,24 @@
             "monitor.check.limit.count": 2,
             "enabled": true,
             "work.path.prefix": ""
-        }
+        },
+        {
+			"name": "watcherfile4",
+			"api_reference": "module+watcherfile4",
+			"api_key": "stage",
+			"watcher.dir": "/home/kollus/http_upload_passthrough",
+			"watcher_file.kind": 3,
+			"work.dir": "/Users/kollus/mnt/medianas/working",
+			"trash.dir": "/Users/kollus/mnt/medianas/trashcan",
+			"delete.diff.minute": 30,
+			"interval": "0/1 * * * * ?",
+			"checkin.time": 5,
+			"checkin.count": 0,
+			"monitor.check.limit.minute": 10,
+			"monitor.check.limit.count": 2,
+			"enabled": true,
+			"work.path.prefix": ""
+		}
     ],
     "diskuse" : {
     	"name" : "diskuse1",

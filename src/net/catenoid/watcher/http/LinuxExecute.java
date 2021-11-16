@@ -14,10 +14,10 @@ import org.apache.log4j.Logger;
 import net.catenoid.watcher.LogAction;
 import net.catenoid.watcher.Watcher;
 import net.catenoid.watcher.config.Config;
-import net.catenoid.watcher.files.FileItem;
-import net.catenoid.watcher.files.LineParser;
-import net.catenoid.watcher.files.linuxLineParser;
-import net.catenoid.watcher.files.windowsLineParser;
+import net.catenoid.watcher.upload.config.LineParser;
+import net.catenoid.watcher.upload.config.LinuxLineParser;
+import net.catenoid.watcher.upload.config.WindowsLineParser;
+import net.catenoid.watcher.upload.dto.FileItemDTO;
 
 /**
  * 
